@@ -1,0 +1,7 @@
+{
+  "name": "SpendWise --Default",
+  "dbURI": "mongodb://localhost:27017/spendwise",
+  "jwtPrivateKey": "123",
+  "port": "9001",
+  "requiresAuth": true
+}
