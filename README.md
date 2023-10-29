@@ -1,8 +1,8 @@
 ## Introduction
 
-This project is the backend of Rintly, an imaginary video rental app. I've used Rintly as a practice project.
+This project is the backend of Spendwise backend, an imaginary expense tracker app. I've used Spendwise for complete personal project.
 
-This is the implementation of Rintly in Node.js.
+This is the implementation of Spendwise in Node.js.
 
 ## Setup
 
@@ -20,7 +20,7 @@ Once you install MongoDB, make sure it's running.
 
 Next, from the project folder, install the dependencies:
 
-    yarn install
+    pnpm i
 
 ### Populate the Database
 
@@ -30,19 +30,19 @@ Next, from the project folder, install the dependencies:
 
 You're almost done! Run the tests to make sure everything is working:
 
-    yarn test
+    pnpm test
 
 All tests should pass.
 
 ### Start the Server
 
-    yarn start
+    pnpm start
 
-This will launch the Node server on port 3001. If that port is busy, you can set a different point in config/default.json.
+This will launch the Node server on port 9001. If that port is busy, you can set a different point in config/default.json.
 
 Open up your browser and head over to:
 
-http://localhost:3001/api/genres
+http://localhost:9001/api
 
 You should see the list of genres. That confirms that you have set up everything successfully.
 
@@ -52,8 +52,8 @@ If you look at config/default.json, you'll see a property called jwtPrivateKey. 
 
 On Mac:
 
-    export rintly_jwtPrivateKey=yourSecureKey
+    export spendWise_jwtPrivateKey=yourSecureKey
 
 On Windows:
 
-    set rintly_jwtPrivateKey=yourSecureKey
+    set spendWise_jwtPrivateKey=yourSecureKey
