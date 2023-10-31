@@ -1,6 +1,9 @@
 {
     "name" : "SpendWise --Development",
     "mail" : {
-        "host" : "dev-mail-server"
+        "host": "dev-mail-server",
+        "user": "",
+        "password" : "app_password",
+        "service": ""
     }
 }

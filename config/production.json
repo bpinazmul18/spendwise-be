@@ -1,6 +1,9 @@
 {
     "name" : "SpendWise --Production",
     "mail" : {
-        "host" : "prod-mail-server"
+        "host": "prod-mail-server",
+        "user": "",
+        "password" : "app_password",
+        "service": ""
     }
 }

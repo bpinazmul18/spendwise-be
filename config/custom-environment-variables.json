@@ -1,6 +1,9 @@
 {
     "mail" : {
-        "password" : "app_password"
+        "host": "",
+        "user": "",
+        "password" : "app_password",
+        "service": ""
     },
     "jwtPrivateKey": "spendWise_jwtPrivateKey",
     "dbURI": "spendWise_db"
