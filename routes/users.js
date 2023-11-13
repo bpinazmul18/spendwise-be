@@ -5,6 +5,9 @@ const router = express.Router()
 
 const { User, validate } = require('../models/user')
 const auth = require('../middleware/auth')
+const otpGenerator = require('otp-generator')
+const OTP = require('../models/otp');
+
 
 
 router.get('/me', auth, async (req, res) => {
@@ -25,6 +28,19 @@ router.post('/', async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt)
 
     await user.save()
+
+    let otp = otpGenerator.generate(6, {
+        upperCaseAlphabets: false,
+        lowerCaseAlphabets: false,
+        specialChars: false,
+    });
+
+    const newOtp = new OTP({
+        email: user.email,
+        otp: otp
+    });
+
+    await newOtp.save();
 
     const result = _.pick(user, ['_id', 'name', 'email'])
 

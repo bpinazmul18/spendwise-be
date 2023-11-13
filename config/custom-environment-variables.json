@@ -1,7 +1,7 @@
 {
     "mail" : {
-        "host": "",
-        "user": "",
+        "host": "mail_hostname",
+        "user": "mail_user",
         "password" : "app_password",
         "service": ""
     },
