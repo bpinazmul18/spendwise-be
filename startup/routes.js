@@ -19,7 +19,7 @@ module.exports = function (app) {
     app.use('/', home)
     app.use('/api/users', users)
     app.use('/api/auth', auth)
-    // app.use('/api', otp)
+    app.use('/api', otp)
 
     //error
     app.use(error)

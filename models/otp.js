@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
-const mailSender = require('../utils/mailSender');
+const Joi = require('joi')
+const mailSender = require('../utils/mailSender')
 const winston = require('winston')
 
 const otpSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
   email: {
     type: String,
     required: true,
@@ -14,10 +16,19 @@ const otpSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 60 * 5, // The document will be automatically deleted after 5 minutes of its creation time
+    expires: 60 * 30, // The document will be automatically deleted after 5 minutes of its creation time
   },
-});
-// Define a function to send emails
+}, { timestamps: true});
+
+const OTP = mongoose.model("OTP", otpSchema);
+
+function validateOtp (otp) {
+  const schema = Joi.object({
+    otp: Joi.string().regex(/^[0-9]{5}$/).messages({'string.pattern.base': `OTP must have 5 digits.`}).required()
+  })
+  return schema.validate(otp)
+}
+
 async function sendVerificationEmail({ email, otp}) {
   try {
     const mailResponse = await mailSender(
@@ -34,9 +45,12 @@ async function sendVerificationEmail({ email, otp}) {
 }
 
 otpSchema.pre("save", async function (next) {
+  winston.info("New document saved to the database");
   if (this.isNew) {
     await sendVerificationEmail({ email: this.email, otp: this.otp});
   }
   next();
 });
-module.exports = mongoose.model("OTP", otpSchema);
+
+module.exports.validate = validateOtp
+module.exports.OTP = OTP
