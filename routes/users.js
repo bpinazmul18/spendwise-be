@@ -29,19 +29,19 @@ router.post('/', async (req, res) => {
 
     await user.save()
 
-    // let otp = otpGenerator.generate(5, {
-    //     upperCaseAlphabets: false,
-    //     lowerCaseAlphabets: false,
-    //     specialChars: false,
-    // });
-    //
-    // const newOtp = new OTP({
-    //     userId: user._id,
-    //     email: user.email,
-    //     otp: otp
-    // });
-    //
-    // await newOtp.save();
+    let otp = otpGenerator.generate(5, {
+        upperCaseAlphabets: false,
+        lowerCaseAlphabets: false,
+        specialChars: false,
+    });
+
+    const newOtp = new OTP({
+        userId: user._id,
+        email: user.email,
+        otp: otp
+    });
+
+    await newOtp.save();
 
     const result = _.pick(user, ['_id', 'name', 'email'])
 

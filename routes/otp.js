@@ -3,6 +3,7 @@ const router = express.Router()
 
 const {validate, OTP } = require('../models/otp');
 const { User } = require('../models/user')
+const _ = require('lodash')
 
 router.post('/verify-email', async (req, res) => {
   const {error, value} = validate(req.body)
@@ -15,9 +16,11 @@ router.post('/verify-email', async (req, res) => {
   }
 
   let user = await User.findOneAndUpdate({ email: otpData['email'] }, { verified: true })
-  console.log({ user})
+  await user.save()
+  await OTP.findOneAndDelete({ userId: user._id})
 
-  return res.status(200).send(user)
+  const result = _.pick(user, ['_id', 'name', 'email'])
+  return res.status(200).send(result)
 })
 
 module.exports = router
