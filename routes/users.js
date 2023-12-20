@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
         specialChars: false,
     });
 
-    const newOtp = new OTP({
+    const newOtp = await new OTP({
         userId: user._id,
         email: user.email,
         otp: otp

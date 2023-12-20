@@ -20,8 +20,6 @@ const otpSchema = new mongoose.Schema({
   },
 }, { timestamps: true});
 
-const OTP = mongoose.model("OTP", otpSchema);
-
 function validateOtp (otp) {
   const schema = Joi.object({
     otp: Joi.string().regex(/^[0-9]{5}$/).messages({'string.pattern.base': `OTP must have 5 digits.`}).required()
@@ -38,7 +36,7 @@ async function sendVerificationEmail({ email, otp}) {
        <p>Here is your OTP code: ${otp}</p>`
     );
 
-    winston.log("Email sent successfully: ", mailResponse);
+    winston.info("Email sent successfully: ", mailResponse);
   } catch (error) {
     winston.error(error.message)
   }
@@ -51,6 +49,8 @@ otpSchema.pre("save", async function (next) {
   }
   next();
 });
+
+const OTP = mongoose.model("OTP", otpSchema);
 
 module.exports.validate = validateOtp
 module.exports.OTP = OTP
